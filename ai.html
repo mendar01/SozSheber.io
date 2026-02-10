@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sozsheber | AI Көмекші</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">Sozsheber.</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Басты бет</a></li>
+                <li><a href="debate.html">Дебат</a></li>
+                <li><a href="tedx.html">TEDx</a></li>
+                <li><a href="tips.html">Кеңестер</a></li>
+                <li><a href="ai.html" class="active ai-btn">AI Көмекші</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="ai-page-wrapper">
+        <div class="container">
+            
+            <div class="ai-header-text">
+                <h1>🤖 AI Debate Assistant</h1>
+                <p>Аргументіңізді жазыңыз, жасанды интеллект оған қарсы жауап (rebuttal) немесе талдау жасайды.</p>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-window" id="chatWindow">
+                    <div class="message bot-msg">
+                        <div class="msg-content">
+                            Сәлем! Мен Sozsheber AI көмекшісімін. [cite_start]Маған дебат тақырыбын немесе аргумент жазыңыз[cite: 10].
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Мысалы: Мектеп формасын алып тастау керек...">
+                    <button onclick="sendMessage()" class="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h3>Sozsheber.</h3>
+                <p>Республикалық ғылыми жоба.</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Sozsheber. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const chatWindow = document.getElementById('chatWindow');
+            const userText = inputField.value.trim();
+
+            if (userText === "") return;
+
+            // 1. Пайдаланушының хабарламасын қосу
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'message user-msg';
+            userMsgDiv.innerHTML = `<div class="msg-content">${userText}</div>`;
+            chatWindow.appendChild(userMsgDiv);
+
+            // Input-ты тазалау
+            inputField.value = '';
+            
+            // Чатты төменге түсіру
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            // 2. ИИ "ойланып жатыр" (1 секунд күту)
+            setTimeout(() => {
+                const botMsgDiv = document.createElement('div');
+                botMsgDiv.className = 'message bot-msg';
+                
+                // ИИ жауаптарының базасы (кездейсоқ таңдалады)
+                const responses = [
+                    "Бұл аргумент қызықты, бірақ оған былай қарсы шығуға болады: Статистика бойынша бұл шешім ұзақ мерзімде тиімсіз.",
+                    "Керемет ой! Оны күшейту үшін 'Impact' (әлеуметтік әсерін) нақтырақ көрсету керек. Кімге зиян келеді?",
+                    "Дебат құрылымы бойынша талдау: Сіздің тезисіңіз дұрыс, бірақ дәлелдер (Evidence) аз. Нақты мысал келтіріңіз.",
+                    "Қарсы жақтың аргументі (Rebuttal): Бұл экономикалық тұрғыдан өте шығынды болуы мүмкін. Қаржы көзі қайдан алынады?",
+                    "Бұл 'Статус квоны' өзгерте ме? Қазіргі жағдаймен салыстырғанда қандай артықшылығы бар?",
+                    "Логикалық қателік болуы мүмкін. Себеп-салдар байланысын тексеріңіз."
+                ];
+
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+
+                botMsgDiv.innerHTML = `<div class="msg-content">${randomResponse}</div>`;
+                chatWindow.appendChild(botMsgDiv);
+                
+                // Чатты қайтадан төменге түсіру
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }, 1000);
+        }
+
+        // Enter батырмасын басқанда жіберу
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+
+</body>
+</html>
