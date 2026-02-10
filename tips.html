@@ -1,86 +1,94 @@
-/* --- СТИЛИ ДЛЯ СТРАНИЦЫ TEDX --- */
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sozsheber | Пайдалы кеңестер</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-/* Меняем цвет заголовка на красный для этой страницы */
-.tedx-header {
-    background-color: #000; /* Черный фон */
-    border-bottom: 5px solid #e62b1e; /* Красная линия TED */
-}
+    <nav class="navbar">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">Sozsheber.</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Басты бет</a></li>
+                <li><a href="debate.html">Дебат</a></li>
+                <li><a href="tedx.html">TEDx</a></li>
+                <li><a href="tips.html" class="active">Кеңестер</a></li>
+                <li><a href="ai.html" class="ai-btn">AI Көмекші</a></li>
+            </ul>
+        </div>
+    </nav>
 
-/* Блок с иконкой и текстом */
-.tedx-hero-block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    margin-bottom: 40px;
-    flex-wrap: wrap; /* Чтобы на телефоне переносилось */
-}
+    <header class="page-header tips-header">
+        <div class="container">
+            <h1>Сөйлеу шеберлігін арттыру</h1>
+            <p>Күнделікті қолдануға арналған 5 алтын ереже.</p>
+        </div>
+    </header>
 
-.tedx-text {
-    flex: 1;
-    min-width: 300px;
-}
+    <main class="container page-content">
+        
+        <div class="tips-list">
+            
+            <div class="tip-card">
+                <div class="tip-number">01</div>
+                <div class="tip-content">
+                    <h3><i class="fa-solid fa-person-rays"></i> Айнаға қарап жаттығу</h3>
+                    <p>Күнде 1–2 минут өзіңізді айнадан бақылап сөйлеңіз. Дауыс ырғағын, интонацияны және қол қимылдарыңызды (жест) тексеріңіз.</p>
+                </div>
+            </div>
 
-.tedx-icon {
-    flex: 0 0 150px;
-    text-align: center;
-}
+            <div class="tip-card">
+                <div class="tip-number">02</div>
+                <div class="tip-content">
+                    <h3><i class="fa-solid fa-list-check"></i> Дайындалып сөйлеу</h3>
+                    <p>Сөйлеу алдында қысқа жоспар құрыңыз немесе негізгі ойларды қағазға жазып алыңыз. Ойыңызды реттеп, сенімді түрде жеткізуге дайындалыңыз.</p>
+                </div>
+            </div>
 
-.tedx-icon i {
-    font-size: 8rem; /* Огромная иконка */
-    color: #e62b1e; /* Красный цвет TED */
-    opacity: 0.8;
-}
+            <div class="tip-card">
+                <div class="tip-number">03</div>
+                <div class="tip-content">
+                    <h3><i class="fa-solid fa-users"></i> Кіші топта тәжірибе жасау</h3>
+                    <p>Достарыңызға немесе отбасыңызға сөйлеп көріңіз. Олардан кері байланыс алып, қателіктерді байқап, жақсартуға тырысыңыз.</p>
+                </div>
+            </div>
 
-/* Красная кнопка */
-.btn-red {
-    background-color: #e62b1e;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: 0.3s;
-}
+            <div class="tip-card">
+                <div class="tip-number">04</div>
+                <div class="tip-content">
+                    <h3><i class="fa-solid fa-microphone"></i> Өзіңізді жазып, тыңдау</h3>
+                    <p>Сөйлеуіңізді видеоға немесе аудиоға жазып, кейін тыңдаңыз. Қай жерлерді түзету керек екенін анықтап, жаттығуды қайталаңыз.</p>
+                </div>
+            </div>
 
-.btn-red:hover {
-    background-color: #c41e12;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(230, 43, 30, 0.4);
-}
+            <div class="tip-card">
+                <div class="tip-number">05</div>
+                <div class="tip-content">
+                    <h3><i class="fa-solid fa-font"></i> Қысқа мәтіндермен бастау</h3>
+                    <p>Бір-екі сөйлемнен бастап, кейін ұзын мәтіндерге көшіңіз. Бұл сенімділікті арттырады және сөйлеу мәдениетін кезең-кезеңімен дамытады.</p>
+                </div>
+            </div>
 
-/* Темная кнопка (контурная) */
-.btn-outline-dark {
-    border: 2px solid #333;
-    color: #333;
-    padding: 10px 25px;
-    border-radius: 30px;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: 0.3s;
-}
+        </div>
 
-.btn-outline-dark:hover {
-    background-color: #333;
-    color: white;
-}
+    </main>
 
-.buttons-row {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h3>Sozsheber.</h3>
+                <p>Республикалық ғылыми жоба.</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Sozsheber. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </footer>
 
-.text-center {
-    text-align: center;
-}
+</body>
+</html>
