@@ -7,6 +7,53 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        .user-msg {
+            justify-content: flex-end;
+        }
+        .bot-msg {
+            justify-content: flex-start;
+        }
+        .bubble {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+        }
+        .user-msg .bubble {
+            background: #1a237e; /* Сіздің стиліңіздегі көк түс */
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+        .bot-msg .bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-bottom-left-radius: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .typing-indicator {
+            font-style: italic;
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: none; /* Басында көрінбейді */
+        }
+    </style>
 </head>
 <body>
 
@@ -23,29 +70,32 @@
         </div>
     </nav>
 
-    <main class="ai-page-wrapper">
-        <div class="container">
+    <main class="container page-content" style="margin-top: 40px;">
+        <div class="content-box" style="max-width: 800px; margin: 0 auto; padding: 0; overflow: hidden;">
             
-            <div class="ai-header-text">
-                <h1>🤖 AI Debate Assistant</h1>
-                <p>Аргументіңізді жазыңыз, жасанды интеллект оған қарсы жауап (rebuttal) немесе талдау жасайды.</p>
+            <div style="background: #1a237e; color: white; padding: 20px; text-align: center;">
+                <h2 style="margin: 0; font-size: 1.5rem;"><i class="fa-solid fa-robot"></i> Sozsheber AI</h2>
+                <p style="margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem;">Дебат және шешендік өнер бойынша сұрақ қойыңыз</p>
             </div>
 
-            <div class="chat-container">
-                <div class="chat-window" id="chatWindow">
-                    <div class="message bot-msg">
-                        <div class="msg-content">
-                            Сәлем! Мен Sozsheber AI көмекшісімін. Маған дебат тақырыбын немесе аргумент жазыңыз.
-                        </div>
+            <div class="chat-box" id="chatContainer">
+                <div class="message bot-msg">
+                    <div class="bubble">
+                        Сәлем! Мен сіздің виртуалды көмекшіңізбін. <br>
+                        Маған дебат, аргумент құру, қорқынышты жеңу немесе TEDx туралы сұрақ қойыңыз.
                     </div>
                 </div>
+            </div>
 
-                <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Мысалы: Мектеп формасын алып тастау керек...">
-                    <button onclick="sendMessage()" class="send-btn">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
+            <div id="typingIndicator" class="typing-indicator" style="padding-left: 20px;">
+                AI жауап жазуда...
+            </div>
+
+            <div style="padding: 20px; background: white; display: flex; gap: 10px; border-top: 1px solid #eee;">
+                <input type="text" id="userInput" placeholder="Сұрағыңызды осында жазыңыз..." style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 30px; outline: none;">
+                <button onclick="sendMessage()" style="background: #ff6f00; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </div>
 
         </div>
@@ -64,58 +114,90 @@
     </footer>
 
     <script>
-        function sendMessage() {
-            const inputField = document.getElementById('userInput');
-            const chatWindow = document.getElementById('chatWindow');
-            const userText = inputField.value.trim();
-
-            if (userText === "") return;
-
-            // 1. Пайдаланушының хабарламасын қосу
-            const userMsgDiv = document.createElement('div');
-            userMsgDiv.className = 'message user-msg';
-            userMsgDiv.innerHTML = `<div class="msg-content">${userText}</div>`;
-            chatWindow.appendChild(userMsgDiv);
-
-            // Input-ты тазалау
-            inputField.value = '';
-            
-            // Чатты төменге түсіру
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            // 2. ИИ "ойланып жатыр" (1 секунд күту)
-            setTimeout(() => {
-                const botMsgDiv = document.createElement('div');
-                botMsgDiv.className = 'message bot-msg';
-                
-                // ИИ жауаптарының базасы (кездейсоқ таңдалады)
-                const responses = [
-                    "Бұл аргумент қызықты, бірақ оған былай қарсы шығуға болады: Статистика бойынша бұл шешім ұзақ мерзімде тиімсіз.",
-                    "Керемет ой! Оны күшейту үшін 'Impact' (әлеуметтік әсерін) нақтырақ көрсету керек. Кімге зиян келеді?",
-                    "Дебат құрылымы бойынша талдау: Сіздің тезисіңіз дұрыс, бірақ дәлелдер (Evidence) аз. Нақты мысал келтіріңіз.",
-                    "Қарсы жақтың аргументі (Rebuttal): Бұл экономикалық тұрғыдан өте шығынды болуы мүмкін. Қаржы көзі қайдан алынады?",
-                    "Бұл 'Статус квоны' өзгерте ме? Қазіргі жағдаймен салыстырғанда қандай артықшылығы бар?",
-                    "Логикалық қателік болуы мүмкін. Себеп-салдар байланысын тексеріңіз."
-                ];
-
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-
-                botMsgDiv.innerHTML = `<div class="msg-content">${randomResponse}</div>`;
-                chatWindow.appendChild(botMsgDiv);
-                
-                // Чатты қайтадан төменге түсіру
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }, 1000);
-        }
-
         // Enter батырмасын басқанда жіберу
-        document.getElementById('userInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
+        document.getElementById("userInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
                 sendMessage();
             }
         });
+
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const chatContainer = document.getElementById('chatContainer');
+            const typingIndicator = document.getElementById('typingIndicator');
+            
+            const userText = inputField.value.trim();
+            if (userText === "") return;
+
+            // 1. Пайдаланушы хабарламасын шығару
+            addMessage(userText, 'user-msg');
+            inputField.value = ''; // Тазалау
+
+            // 2. "Жазып жатыр..." эффектісін қосу
+            typingIndicator.style.display = 'block';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 3. Жауапты дайындау (1.5 секунд кідіріспен)
+            setTimeout(() => {
+                const botResponse = getSmartResponse(userText.toLowerCase());
+                typingIndicator.style.display = 'none';
+                addMessage(botResponse, 'bot-msg');
+            }, 1000);
+        }
+
+        function addMessage(text, className) {
+            const chatContainer = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${className}`;
+            msgDiv.innerHTML = `<div class="bubble">${text}</div>`;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight; // Төменге түсіру
+        }
+
+        // --- МЫНА ЖЕРДЕ ИИ-дің "МИЫ" ОРНАЛАСҚАН ---
+        function getSmartResponse(text) {
+            
+            // 1. Сәлемдесу
+            if (text.includes('сәлем') || text.includes('салем') || text.includes('привет') || text.includes('қайырлы')) {
+                return "Сәлем! Қалыңыз қалай? Дебат немесе TEDx туралы не білгіңіз келеді?";
+            }
+            
+            // 2. Дебат туралы
+            else if (text.includes('дебат деген не') || text.includes('дебат туралы')) {
+                return "Дебат – бұл екі тараптың белгілі бір тақырып бойынша жарыссөзі. Ол сыни ойлауды және өз ойын дәлелдеуді үйретеді.";
+            }
+            
+            // 3. Аргумент құру
+            else if (text.includes('аргумент') || text.includes('дәлел') || text.includes('кейс')) {
+                return "Мықты аргумент құру үшін <strong>SEXI</strong> формуласын қолданыңыз:<br>1. <strong>S</strong>tatement (Тезис)<br>2. <strong>E</strong>xplanation (Түсіндіру)<br>3. <strong>X</strong>ample (Мысал)<br>4. <strong>I</strong>mpact (Маңыздылығы).";
+            }
+
+            // 4. Қорқыныш / Қобалжу
+            else if (text.includes('қорқам') || text.includes('қорқыныш') || text.includes('қобалжу') || text.includes('уайым')) {
+                return "Қобалжу – қалыпты нәрсе. Оны жеңу үшін:<br>- Терең дем алыңыз.<br>- Айна алдында жаттығыңыз.<br>- Аудиториядағы бір досыңызға қарап сөйлеңіз.";
+            }
+
+            // 5. TEDx туралы
+            else if (text.includes('tedx') || text.includes('тедх')) {
+                return "TEDx – «Таратуға тұрарлық идеялар» форматы. Мұнда бастысы – сіздің бірегей идеяңыз бен шынайы тарихыңыз. Уақыт шектеуі: 18 минутқа дейін.";
+            }
+
+            // 6. Тақырып / Идея жоқ
+            else if (text.includes('тақырып') || text.includes('идея')) {
+                return "Дебатқа қызықты тақырыптар:<br>- Мектеп формасы керек пе?<br>- Жасанды интеллект адамды алмастыра ма?<br>- Экологияны сақтау үшін көліктен бас тарту керек пе?";
+            }
+
+            // 7. Жоба туралы
+            else if (text.includes('автор') || text.includes('кім жасады') || text.includes('жоба')) {
+                return "Бұл «Sozsheber» жобасы. Мақсаты – қазақ жастарының сөйлеу мәдениетін дамыту. Авторы – сіз сияқты дарынды оқушы!";
+            }
+
+            // 8. Егер түсінбесе (Default)
+            else {
+                return "Кешіріңіз, мен сұрағыңызды толық түсінбедім. Мына тақырыптар туралы сұрап көріңіз: <br>- Аргумент құру<br>- Қорқынышты жеңу<br>- Дебат ережелері";
+            }
+        }
     </script>
 
 </body>
-
 </html>
